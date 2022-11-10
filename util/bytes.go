@@ -22,6 +22,10 @@ func (b *Bytes) WriteBytes(data []byte) {
 	b.Data = append(b.Data, data...)
 }
 
+func (b *Bytes) WriteString(data string) {
+	b.Data = append(b.Data, []byte(data))
+}
+
 // 当前可用的长度
 func (b *Bytes) ByteLength() int {
 	return len(b.Data)
@@ -50,8 +54,16 @@ func (b *Bytes) ReadInt() int {
 	return int(b.Read())
 }
 
-// 写入一个Short整数
+// 写入一个Short整数(2字节符)
 func (b *Bytes) WriteShort(v int) {
+	b.Write((v >> 8) & 0xFF)
+	b.Write((v >> 0) & 0xFF)
+}
+
+// 写入一个ShortInt整数(4字节符)
+func (b *Bytes) WriteUnsignedInt(v int) {
+	b.Write((v >> 24) & 0xFF)
+	b.Write((v >> 16) & 0xFF)
 	b.Write((v >> 8) & 0xFF)
 	b.Write((v >> 0) & 0xFF)
 }
