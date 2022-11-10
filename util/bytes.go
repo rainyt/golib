@@ -23,7 +23,7 @@ func (b *Bytes) WriteBytes(data []byte) {
 }
 
 func (b *Bytes) WriteString(data string) {
-	b.Data = append(b.Data, []byte(data))
+	b.Data = append(b.Data, []byte(data)...)
 }
 
 // 当前可用的长度
